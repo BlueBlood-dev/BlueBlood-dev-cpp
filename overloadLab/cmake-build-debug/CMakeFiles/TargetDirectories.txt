@@ -1,3 +1,0 @@
-/cygdrive/d/GitClone/2-sem-cpp-labs/overloadLab/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/d/GitClone/2-sem-cpp-labs/overloadLab/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/d/GitClone/2-sem-cpp-labs/overloadLab/cmake-build-debug/CMakeFiles/overloadLab.dir
