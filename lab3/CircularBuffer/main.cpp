@@ -72,7 +72,6 @@ void testAlgorithms(){
     assert(Algs::all_of(myTestVar.begin(),myTestVar.end(),even));
     myTestVar = {1,2,4,8,2,10};
     assert(*Algs::find_backwards(myTestVar.begin(),myTestVar.end(),8) == 8);
-    //etc...
 }
 
 
