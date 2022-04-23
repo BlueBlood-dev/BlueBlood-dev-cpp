@@ -9,20 +9,22 @@ void testIterator(){
     for (int i = 17; i >= 0; --i)
         tempBuffer.pushBack(i);
     tempBuffer.pushFront(123);
-    //tempBuffer.pushFront(123);
-    for(int i =0; i < 20; ++i)
-        std::cout << tempBuffer[i] << " ";
-    std::cout<<std::endl;
-
+    tempBuffer.pushFront(123);
     auto start = tempBuffer.begin();
     auto end = tempBuffer.end();
+    while(start!=end){
+        std::cout << *start << " ";
+        start++;
+    }
+    std::cout << "\nStarting sorting algo...\nthe output is\n";
+    start = tempBuffer.begin();
+    end = tempBuffer.end();
     std::sort(start,end);
     while(start!=end){
         std::cout << *start << " ";
         start++;
     }
     std::cout << "\nEND OF ITERATOR TESTING\n -----------------------\n";
-
 }
 
 

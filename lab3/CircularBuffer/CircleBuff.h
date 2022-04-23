@@ -69,19 +69,22 @@ public:
     void popBack() {
         if(numberOfElements == 0)
             std::cout << "You try to popBack() when buffer is already empty" << std::endl;
-
-        if (last)
-            last--;
-        else
-            last = size - 1;
-        numberOfElements--;
+        else {
+            if (last)
+                last--;
+            else
+                last = size - 1;
+            numberOfElements--;
+        }
     }
 
     void popFront() {
         if(numberOfElements == 0)
             std::cout << "You try to popFront() when buffer is already empty" << std::endl;
-        start = increment(start);
-        numberOfElements--;
+        else {
+            start = increment(start);
+            numberOfElements--;
+        }
     }
 
     void pushBack(T value) {
