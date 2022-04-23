@@ -4,7 +4,7 @@
 #include <sys/unistd.h>
 #include "GetRequest.cpp"
 
-void printMedium(std::map<std::string, std::vector<double>> dataStorage) {
+void printMedium(const std::map<std::string, std::vector<double>>& dataStorage) {
     for (auto currency: dataStorage) {
         std::sort(currency.second.begin(), currency.second.end());
         std::cout << "Medium for " << currency.first << " is " << currency.second[currency.second.size() / 2]
@@ -13,8 +13,8 @@ void printMedium(std::map<std::string, std::vector<double>> dataStorage) {
     std::cout << "------------------------------------------------------------" << std::endl;
 }
 
-void printAverage(std::map<std::string, std::vector<double>> dataStorage) {
-    for (auto currency: dataStorage) {
+void printAverage(const std::map<std::string, std::vector<double>>& dataStorage) {
+    for (const auto& currency: dataStorage) {
         double sum = 0;
         for (auto value: currency.second)
             sum += value;

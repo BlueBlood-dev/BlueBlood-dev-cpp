@@ -13,7 +13,7 @@ size_t GetRequest::WriteMemoryCallback(void *contents, size_t size, size_t memcp
     return size * memcp;
 }
 
-std::string GetRequest::getJson() {
+std::string GetRequest::getJson() const{
     std::string response;
     CURL *curlHandle = curl_easy_init();
     curl_easy_setopt(curlHandle, CURLOPT_SSL_VERIFYPEER, false);

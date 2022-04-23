@@ -4,7 +4,7 @@ private:
 public:
     explicit GetRequest(const char *URL);
 
-    std::string getJson();
+    std::string getJson() const;
 
     ~GetRequest();
 
