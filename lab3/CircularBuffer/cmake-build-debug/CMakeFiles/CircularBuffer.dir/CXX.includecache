@@ -27,6 +27,8 @@ iostream
 -
 algorithm
 -
+cassert
+-
 CircleBuff.h
 /cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/CircleBuff.h
 algorithms.h

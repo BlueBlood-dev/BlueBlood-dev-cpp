@@ -7,6 +7,7 @@
 #include <vector>
 #include  <iostream>
 #include  <algorithm>
+
 namespace Algs {
     template<class iter, class predic>
     bool any_of(iter begin, iter end, predic p) {
@@ -58,20 +59,23 @@ namespace Algs {
     iter find_backwards(iter begin, iter end, const T &value) {
         iter temp = end;
         for (; begin != end; begin++)
-            if (*begin != value)
+            if (*begin == value)
                 temp = begin;
         return temp;
     }
 
     template<class iter, class compareFunc>
-    bool is_palindrome(iter begin, iter end, compareFunc compare) {
-        for (; begin != end; begin++) {
-            if (!compare(*begin, *end))
+    bool is_palindrome(iter begin, iter end, compareFunc comp) {
+        if (begin == end)
+            return true;
+        end--;
+        while (begin != end) {
+            if (comp(*begin)!=comp(*end))
                 return false;
-            begin++;
+            ++begin;
             if (begin == end)
                 break;
-            end--;
+            --end;
         }
         return true;
     }
@@ -115,4 +119,5 @@ namespace Algs {
         return true;
     }
 }
+
 #endif //CIRCULARBUFFER_ALGORITHMS_H

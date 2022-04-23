@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 #include "CircleBuff.h"
 #include "algorithms.h"
 
@@ -56,21 +57,28 @@ bool even(int element){
 
 void testAlgorithms(){
     std::vector<int> myTestVar = {1,2,3,4,5,6};
-    if(Algs::is_sorted(myTestVar.begin(),myTestVar.end()))
-        std::cout << "SORTED\n";
+    assert(Algs::is_sorted(myTestVar.begin(),myTestVar.end()));
     myTestVar = {2,4,8,10};
-   if(Algs::is_partitioned(myTestVar.begin(),myTestVar.end(),even))
-        std::cout<< "PARTITIONED\n";
-
-   auto element = *Algs::find_not(myTestVar.begin(),myTestVar.end(),2);
-        std::cout << "the element due to FIND_NOT is "  << element << std::endl;
-    //etc... 
+    assert(Algs::is_partitioned(myTestVar.begin(),myTestVar.end(),even));
+    assert(*Algs::find_not(myTestVar.begin(),myTestVar.end(),2) == 4);
+    assert(Algs::is_palindrome(myTestVar.begin(),myTestVar.end(),even));
+    myTestVar = {1,2,3,4,5,6};
+    assert(Algs::any_of(myTestVar.begin(),myTestVar.end(),even));
+    myTestVar = {1,3,5};
+    assert(Algs::none_of(myTestVar.begin(),myTestVar.end(),even));
+    myTestVar = {1,3,2,5};
+    assert(Algs::one_of(myTestVar.begin(),myTestVar.end(),even));
+    myTestVar = {2,4,8,10};
+    assert(Algs::all_of(myTestVar.begin(),myTestVar.end(),even));
+    myTestVar = {1,2,4,8,2,10};
+    assert(*Algs::find_backwards(myTestVar.begin(),myTestVar.end(),8) == 8);
+    //etc...
 }
 
 
 
 int main() {
-    testIterator();
+    //testIterator();
     //testPrints();
     testAlgorithms();
 }
