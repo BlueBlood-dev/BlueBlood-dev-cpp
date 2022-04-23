@@ -6,10 +6,10 @@
 
 void testIterator(){
     CircleBuff<int> tempBuffer(20);
-    for (int i = 0; i < 18; ++i)
-        tempBuffer.pushBack(rand() % 1000);
+    for (int i = 17; i >= 0; --i)
+        tempBuffer.pushBack(i);
     tempBuffer.pushFront(123);
-    tempBuffer.pushFront(123);
+    //tempBuffer.pushFront(123);
     for(int i =0; i < 20; ++i)
         std::cout << tempBuffer[i] << " ";
     std::cout<<std::endl;
@@ -49,6 +49,14 @@ void testPrints(){
     tempBuffer.popBack();
     tempBuffer.pushBack(11);
     tempBuffer.testPrint();
+    auto begin = tempBuffer.begin();
+    auto end = tempBuffer.end();
+    std::cout<< "Output using iterator\n";
+    while(begin!=end){
+        std::cout << *begin << " ";
+        begin++;
+    }
+    std::cout << std::endl;
 }
 
 bool even(int element){
@@ -74,10 +82,8 @@ void testAlgorithms(){
     assert(*Algs::find_backwards(myTestVar.begin(),myTestVar.end(),8) == 8);
 }
 
-
-
 int main() {
-    //testIterator();
-    //testPrints();
+    testIterator();
     testAlgorithms();
+    testPrints();
 }

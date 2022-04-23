@@ -28,14 +28,14 @@ public:
         delete[] buffer;
     }
 
-    unsigned int decrement(unsigned int index) {
+    unsigned int decrement(unsigned int index) const{
         if (index == 0)
             return size - 1;
         else
             return --index;
     }
 
-    unsigned int increment(unsigned int index) {
+    unsigned int increment(unsigned int index) const{
         if (index + 1 < size)
             return ++index;
         else
@@ -66,19 +66,22 @@ public:
         return last;
     }
 
-    T popBack() {
+    void popBack() {
+        if(numberOfElements == 0)
+            std::cout << "You try to popBack() when buffer is already empty" << std::endl;
+
         if (last)
             last--;
         else
             last = size - 1;
         numberOfElements--;
-        return buffer[last];
     }
 
-    T popFront() {
+    void popFront() {
+        if(numberOfElements == 0)
+            std::cout << "You try to popFront() when buffer is already empty" << std::endl;
         start = increment(start);
         numberOfElements--;
-        return buffer[start];
     }
 
     void pushBack(T value) {

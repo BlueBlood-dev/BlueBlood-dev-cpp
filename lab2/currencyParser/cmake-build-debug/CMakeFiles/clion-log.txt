@@ -1,4 +1,1 @@
-C:\Users\Денис\AppData\Local\JetBrains\CLion2021.2\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /cygdrive/d/GitClone/2-sem-cpp-labs/currencyParser
--- Configuring done
--- Generating done
--- Build files have been written to: /cygdrive/d/GitClone/2-sem-cpp-labs/currencyParser/cmake-build-debug
+CMakeLists.txt not found in D:\GitClone\BlueBlood-dev-cpp\lab2\currencyParser Select CMakeLists.txt
