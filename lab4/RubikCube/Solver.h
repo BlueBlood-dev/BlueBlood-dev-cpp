@@ -9,14 +9,22 @@
 class Solver {
 private:
     Cube cubeToSolve;
+
     //someSteps
     std::string stepOne();
+
     std::string stepTwo();
+
     std::string stepThree();
+
     std::string stepFour();
+
     std::string stepFive();
+
     std::string stepSix();
+
     std::string stepSeven();
+
 public:
     explicit Solver(const Cube &cubeToSolve);
 

@@ -14,9 +14,9 @@ std::string Solver::solve() {
     solution += stepFour();
     solution += stepFive();
     solution += stepSix();
-   // solution += stepSeven();
+    solution += stepSeven();
     cubeToSolve.printCube();
-    return solution;// + stepN();
+    return solution;
 }
 
 std::string Solver::stepOne() {
@@ -779,12 +779,12 @@ std::string Solver::stepSix() {
         cubeToSolve.right();
         cubeToSolve.back();
         cubeToSolve.left();
-    } else if((reviewedEntity[2][2] == 'g' && reviewedEntity[3][0] == 'o' && reviewedEntity[4][0] == 'p') ||
-            (reviewedEntity[2][2] == 'g' && reviewedEntity[3][0] == 'p' && reviewedEntity[4][0] == 'o') ||
-            (reviewedEntity[2][2] == 'p' && reviewedEntity[3][0] == 'g' && reviewedEntity[4][0] == 'o') ||
-            (reviewedEntity[2][2] == 'p' && reviewedEntity[3][0] == 'o' && reviewedEntity[4][0] == 'g') ||
-            (reviewedEntity[2][2] == 'o' && reviewedEntity[3][0] == 'g' && reviewedEntity[4][0] == 'p') ||
-            (reviewedEntity[2][2] == 'o' && reviewedEntity[3][0] == 'p' && reviewedEntity[4][0] == 'g')){
+    } else if ((reviewedEntity[2][2] == 'g' && reviewedEntity[3][0] == 'o' && reviewedEntity[4][0] == 'p') ||
+               (reviewedEntity[2][2] == 'g' && reviewedEntity[3][0] == 'p' && reviewedEntity[4][0] == 'o') ||
+               (reviewedEntity[2][2] == 'p' && reviewedEntity[3][0] == 'g' && reviewedEntity[4][0] == 'o') ||
+               (reviewedEntity[2][2] == 'p' && reviewedEntity[3][0] == 'o' && reviewedEntity[4][0] == 'g') ||
+               (reviewedEntity[2][2] == 'o' && reviewedEntity[3][0] == 'g' && reviewedEntity[4][0] == 'p') ||
+               (reviewedEntity[2][2] == 'o' && reviewedEntity[3][0] == 'p' && reviewedEntity[4][0] == 'g')) {
         logToAdd += "L`B`R`BLB`RB";
         cubeToSolve.leftReversed();
         cubeToSolve.backReversed();
@@ -795,13 +795,13 @@ std::string Solver::stepSix() {
         cubeToSolve.right();
         cubeToSolve.back();
     }
-    return  logToAdd;
+    return logToAdd;
 }
 
 std::string Solver::stepSeven() {
     std::string logToAdd;
     std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
-    if(reviewedEntity[1][0] == 'o'){
+    if (reviewedEntity[1][0] == 'o') {
         logToAdd += "F`RFR`F`RFR`";
         cubeToSolve.frontReversed();
         cubeToSolve.right();
@@ -811,7 +811,7 @@ std::string Solver::stepSeven() {
         cubeToSolve.right();
         cubeToSolve.front();
         cubeToSolve.rightReversed();
-    }else if(reviewedEntity[0][2] == 'o'){
+    } else if (reviewedEntity[0][2] == 'o') {
         logToAdd += "RF`R`FRF`R`F";
         cubeToSolve.right();
         cubeToSolve.frontReversed();
@@ -827,7 +827,7 @@ std::string Solver::stepSeven() {
     }
     for (int i = 0; i < 4; ++i) {
         reviewedEntity = cubeToSolve.getCubeEntity();
-        if(reviewedEntity[1][0] == 'o'){
+        if (reviewedEntity[1][0] == 'o') {
             logToAdd += "F`RFR`F`RFR`";
             cubeToSolve.frontReversed();
             cubeToSolve.right();
@@ -837,7 +837,7 @@ std::string Solver::stepSeven() {
             cubeToSolve.right();
             cubeToSolve.front();
             cubeToSolve.rightReversed();
-        }else if(reviewedEntity[0][2] == 'o'){
+        } else if (reviewedEntity[0][2] == 'o') {
             logToAdd += "RF`R`FRF`R`F";
             cubeToSolve.right();
             cubeToSolve.frontReversed();
@@ -852,15 +852,14 @@ std::string Solver::stepSeven() {
         logToAdd += "U";
     }
     int counter = 0;
-    while(!cubeToSolve.isSolved()){
+    while (!cubeToSolve.isSolved()) {
         cubeToSolve.up();
-        logToAdd+="U";
+        logToAdd += "U";
         counter++;
-        if(counter == 4)
+        if (counter == 4)
             throw std::invalid_argument("Rubik invariant, change input");
     }
-    return  logToAdd;
-
+    return logToAdd;
 }
 
 

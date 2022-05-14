@@ -6,9 +6,8 @@
 #include "Solver.cpp"
 
 Cube::Cube(std::vector<std::vector<char>> cubeEntity) : CubeEntity(std::move(cubeEntity)) {
-    if(!checkInput(cubeEntity))
-        throw std::invalid_argument("Wrong input");
-
+    if (!checkInput(CubeEntity))
+        throw std::invalid_argument("wrong input");
 }
 
 Cube::Cube() = default;
@@ -73,12 +72,11 @@ void Cube::setFromInput(const std::string &filename) {
             checkCounter++;
         }
         in.close();
-        if (checkCounter != 54)
+        CubeEntity = entity;
+        if (!checkInput(CubeEntity))
             throw std::invalid_argument("wrong input format");
-        else
-            CubeEntity = entity;
     }
-} 
+}
 
 //FRBLUD
 void Cube::right() {
@@ -125,9 +123,9 @@ void Cube::rightReversed() {
     CubeEntity[4][5] = tempEntity[2][3];
     CubeEntity[4][2] = tempEntity[2][6];
     //BACK CHANGES from old down
-    CubeEntity[2][6] = tempEntity[5][8];
+    CubeEntity[2][0] = tempEntity[5][8];
     CubeEntity[2][3] = tempEntity[5][5];
-    CubeEntity[2][0] = tempEntity[5][2];
+    CubeEntity[2][6] = tempEntity[5][2];
     //SIDE CHANGES
     CubeEntity[1][6] = tempEntity[1][0];
     CubeEntity[1][3] = tempEntity[1][1];
@@ -453,23 +451,54 @@ bool Cube::isSolved() const {
 }
 
 bool Cube::checkInput(const std::vector<std::vector<char>> &cubeEntity) const {
-    std::string order = "bpgrow";
-    int orderChecker = 0;
-    if (cubeEntity.size() != 6) // check that only provided colors are present
+    if (cubeEntity.size() != 6)
         return false;
-    for(int i = 0; i < cubeEntity.size(); ++i){
-        for (int j = 0; j < CubeEntity[i].size(); ++j) {
-            if(CubeEntity[i].size() != 9)
-                return false;
-    }
-        if(cubeEntity[0][4] !='b' || cubeEntity[1][4] !='p' || cubeEntity[2][4] != 'g' || cubeEntity[3][4] !='r' || cubeEntity[4][4] != 'o' || cubeEntity[5][4] != 'w')
+    for (int i = 0; i < cubeEntity.size(); ++i) {//   for (int j = 0; j < CubeEntity[i].size(); ++j) {
+        if (CubeEntity[i].size() != 9) {
             return false;
+        }
+    }
+    if (cubeEntity[0][4] != 'b' || cubeEntity[1][4] != 'p' || cubeEntity[2][4] != 'g' || cubeEntity[3][4] != 'r' ||
+        cubeEntity[4][4] != 'o' || cubeEntity[5][4] != 'w')
+        return false;
     return true;
 }
 
-
-
-
-
-
+void Cube::generateRandom() {
+    int max = 12;
+    std::vector<std::vector<char>> tempEntity = {{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
+                                                 {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
+                                                 {'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g'},
+                                                 {'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'},
+                                                 {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
+                                                 {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+    CubeEntity = tempEntity;
+    srand(time(0));
+    for (int i = 0; i < 100; ++i) {
+        if (rand() % max == 1)
+            right();
+        else if(rand() % max == 2)
+            rightReversed();
+        else if(rand() % max == 3)
+            left();
+        else if(rand() % max == 4)
+            leftReversed();
+        else if(rand() % max == 5)
+            up();
+        else if(rand() % max == 6)
+            upReversed();
+        else if(rand() % max == 7)
+            down();
+        else if(rand() % max == 8)
+            downReversed();
+        else if(rand() % max == 9)
+            front();
+        else if(rand() % max == 10)
+            frontReversed();
+        else if(rand() % max == 11)
+            back();
+        else if(rand() % max == 12)
+            backReversed();
+    }
+}
 

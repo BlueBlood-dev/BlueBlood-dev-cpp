@@ -21,6 +21,8 @@ public:
 
     std::string getSolution() const;
 
+    void generateRandom();
+
     virtual ~Cube();
 
     void printCube();
@@ -53,7 +55,7 @@ public:
 
     void setCubeEntity(const std::vector<std::vector<char>> &cubeEntity);
 
-    bool isSolved() const ;
+    bool isSolved() const;
 
 //    bool checkInput(const std::vector<std::vector<char>>&);
 

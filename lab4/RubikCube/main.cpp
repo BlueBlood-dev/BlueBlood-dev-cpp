@@ -4,7 +4,7 @@
 
 int main() {
     // FACETS INPUT ORDER  FRBLUD
-    try { // without app.run()
+    try {
         Cube tempCube = Cube();
         tempCube.setFromInput("input.in");
         tempCube.saveToOutput("output.out");
@@ -25,6 +25,8 @@ int main() {
         tempCube.front();
         tempCube.upReversed();
         tempCube.frontReversed();
+        //tempCube.generateRandom();
+        tempCube.printCube();
         std::string solution = tempCube.getSolution();
         std::cout << solution;
     } catch (std::exception &e) {
