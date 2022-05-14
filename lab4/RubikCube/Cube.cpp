@@ -6,29 +6,20 @@
 #include "Solver.cpp"
 
 Cube::Cube(std::vector<std::vector<char>> cubeEntity) : CubeEntity(std::move(cubeEntity)) {
-    if (CubeEntity.size() != 6) // check that only provided colors are present
-        throw std::invalid_argument("Cube must consist of 6 facets");
-    for (auto const &element: CubeEntity)
-        if (element.size() != 9)
-            throw std::invalid_argument("Facet must consist of 9 cubes");
-//    if(!checkInput())
-//        throw std::invalid_argument("Cubes can't be placed like this");
+    if(!checkInput(cubeEntity))
+        throw std::invalid_argument("Wrong input");
+
 }
 
 Cube::Cube() = default;
 
 Cube::~Cube() = default;
-//}
 
-
-//
-//bool Cube::checkInput(const std::vector<std::vector<char>>& entity) {
-//    int amountHandler = 0;
 std::string Cube::getSolution() const {
     return Solver(Cube(CubeEntity)).solve();
 }
 
-void Cube::printCube() {//change to fout cause of the task
+void Cube::printCube() {
     std::string order = "FRBLUD";
     int orderCounter = 0;
     for (auto const &element: CubeEntity) {
@@ -42,7 +33,7 @@ void Cube::printCube() {//change to fout cause of the task
     }
 }
 
-//FRBLUD
+
 void Cube::saveToOutput(const std::string &filename) {
     std::ofstream out("output.out");
     if (!out)
@@ -87,7 +78,7 @@ void Cube::setFromInput(const std::string &filename) {
         else
             CubeEntity = entity;
     }
-} //add checkInput();
+} 
 
 //FRBLUD
 void Cube::right() {
@@ -450,6 +441,30 @@ const std::vector<std::vector<char>> &Cube::getCubeEntity() const {
 
 void Cube::setCubeEntity(const std::vector<std::vector<char>> &cubeEntity) {
     CubeEntity = cubeEntity;
+}
+
+bool Cube::isSolved() const {
+    for (int i = 0; i < CubeEntity.size(); ++i) {
+        for (int j = 0; j < CubeEntity[i].size(); ++j)
+            if (CubeEntity[i][j] != CubeEntity[i][4])
+                return false;
+    }
+    return true;
+}
+
+bool Cube::checkInput(const std::vector<std::vector<char>> &cubeEntity) const {
+    std::string order = "bpgrow";
+    int orderChecker = 0;
+    if (cubeEntity.size() != 6) // check that only provided colors are present
+        return false;
+    for(int i = 0; i < cubeEntity.size(); ++i){
+        for (int j = 0; j < CubeEntity[i].size(); ++j) {
+            if(CubeEntity[i].size() != 9)
+                return false;
+    }
+        if(cubeEntity[0][4] !='b' || cubeEntity[1][4] !='p' || cubeEntity[2][4] != 'g' || cubeEntity[3][4] !='r' || cubeEntity[4][4] != 'o' || cubeEntity[5][4] != 'w')
+            return false;
+    return true;
 }
 
 

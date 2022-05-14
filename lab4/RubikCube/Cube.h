@@ -15,6 +15,8 @@ public:
 
     Cube();
 
+    bool checkInput(const std::vector<std::vector<char>> &cubeEntity) const;
+
     explicit Cube(std::vector<std::vector<char>> cubeEntity);
 
     std::string getSolution() const;
@@ -50,6 +52,8 @@ public:
     const std::vector<std::vector<char>> &getCubeEntity() const;
 
     void setCubeEntity(const std::vector<std::vector<char>> &cubeEntity);
+
+    bool isSolved() const ;
 
 //    bool checkInput(const std::vector<std::vector<char>>&);
 
