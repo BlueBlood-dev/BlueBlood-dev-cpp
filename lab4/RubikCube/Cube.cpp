@@ -3,7 +3,7 @@
 #include "Cube.h"
 #include <iostream>
 #include <fstream>
-
+#include "Solver.cpp"
 
 Cube::Cube(std::vector<std::vector<char>> cubeEntity) : CubeEntity(std::move(cubeEntity)) {
     if (CubeEntity.size() != 6) // check that only provided colors are present
@@ -18,11 +18,15 @@ Cube::Cube(std::vector<std::vector<char>> cubeEntity) : CubeEntity(std::move(cub
 Cube::Cube() = default;
 
 Cube::~Cube() = default;
+//}
+
+
 //
 //bool Cube::checkInput(const std::vector<std::vector<char>>& entity) {
 //    int amountHandler = 0;
-//}
-
+std::string Cube::getSolution() const {
+    return Solver(Cube(CubeEntity)).solve();
+}
 
 void Cube::printCube() {//change to fout cause of the task
     std::string order = "FRBLUD";
@@ -438,6 +442,14 @@ void Cube::downReversed() {
     CubeEntity[5][8] = tempEntity[5][6];
     CubeEntity[5][5] = tempEntity[5][7];
     CubeEntity[5][2] = tempEntity[5][8];
+}
+
+const std::vector<std::vector<char>> &Cube::getCubeEntity() const {
+    return CubeEntity;
+}
+
+void Cube::setCubeEntity(const std::vector<std::vector<char>> &cubeEntity) {
+    CubeEntity = cubeEntity;
 }
 
 

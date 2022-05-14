@@ -17,6 +17,8 @@ public:
 
     explicit Cube(std::vector<std::vector<char>> cubeEntity);
 
+    std::string getSolution() const;
+
     virtual ~Cube();
 
     void printCube();
@@ -44,6 +46,10 @@ public:
     void down();
 
     void downReversed();
+
+    const std::vector<std::vector<char>> &getCubeEntity() const;
+
+    void setCubeEntity(const std::vector<std::vector<char>> &cubeEntity);
 
 //    bool checkInput(const std::vector<std::vector<char>>&);
 

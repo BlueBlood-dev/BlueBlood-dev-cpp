@@ -1,0 +1,528 @@
+//
+// Created by blueblood on 14.05.2022.
+//
+
+#include "Solver.h"
+
+Solver::Solver(const Cube &cubeToSolve) : cubeToSolve(cubeToSolve) {}
+
+std::string Solver::solve() {
+    std::string solution;
+    solution += stepOne();
+    solution += stepTwo();
+    solution += stepThree();
+    cubeToSolve.printCube();
+    return solution;// + stepN();
+}
+
+std::string Solver::stepOne() {
+    std::string logToAdd;
+    int counter = 0;
+    while (true) {
+        std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
+        if (reviewedEntity[0][1] == 'b' && reviewedEntity[4][7] == 'w') { // state 2``(1)
+            logToAdd += "F``";
+            cubeToSolve.front();
+            cubeToSolve.front();
+            counter = 0;
+        } else if (reviewedEntity[1][1] == 'p' && reviewedEntity[4][5] == 'w') { //state 3``(2)
+            logToAdd += "R``";
+            cubeToSolve.right();
+            cubeToSolve.right();
+            counter = 0;
+        } else if (reviewedEntity[3][1] == 'r' && reviewedEntity[4][3] == 'w') {//state 5``(3)
+            logToAdd += "L``";
+            cubeToSolve.left();
+            cubeToSolve.left();
+            counter = 0;
+        } else if (reviewedEntity[2][1] == 'g' && reviewedEntity[4][1] == 'w') {//state 4`` (4)
+            logToAdd += "B``";
+            cubeToSolve.back();
+            cubeToSolve.back();
+            counter = 0;
+        } else if (reviewedEntity[0][1] == 'w' && reviewedEntity[4][7] == 'b') {//state 6`3`23(5)
+            logToAdd += "U`R`FR";
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            cubeToSolve.front();
+            cubeToSolve.right();
+            counter = 0;
+        } else if (reviewedEntity[4][5] == 'p' && reviewedEntity[1][1] == 'w') {//state 6`4`34 (6)
+            logToAdd += "U`B`RB";
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            cubeToSolve.right();
+            cubeToSolve.back();
+            counter = 0;
+        } else if (reviewedEntity[3][1] == 'w' && reviewedEntity[4][3] == 'r') {//state 6`2`52 (7)
+            logToAdd += "U`F`LF";
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            cubeToSolve.left();
+            cubeToSolve.front();
+            counter = 0;
+        } else if (reviewedEntity[2][1] == 'w' && reviewedEntity[4][7] == 'g') {//state 6`5`45 (8)
+            logToAdd += "U`L`BL";
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            cubeToSolve.back();
+            cubeToSolve.left();
+            counter = 0;
+        } else if (reviewedEntity[0][5] == 'w') { // state 2`6`2 (9)
+            logToAdd += "F`U`F";
+            cubeToSolve.frontReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.front();
+            counter = 0;
+        } else if (reviewedEntity[1][5] == 'w') { //// state 3`6`3(10)
+            logToAdd += "R`U`R";
+            cubeToSolve.rightReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.right();
+            counter = 0;
+        } else if (reviewedEntity[3][5] == 'w') { //state 5`6`5 (11)
+            logToAdd += "L`U`L";
+            cubeToSolve.leftReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.left();
+            counter = 0;
+        } else if (reviewedEntity[2][5] == 'w') {// state 4`6`4 (12)
+            logToAdd += "B`U`B";
+            cubeToSolve.backReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.back();
+            counter = 0;
+        } else if (reviewedEntity[0][3] == 'w') { // state 26`2` (13)
+            logToAdd += "FU`F`";
+            cubeToSolve.front();
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            counter = 0;
+        } else if (reviewedEntity[1][3] == 'w') {//state 36`3` (14)
+            logToAdd += "RU`R`";
+            cubeToSolve.right();
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            counter = 0;
+        } else if (reviewedEntity[3][3] == 'w') { //state 56`5` (15)
+            logToAdd += "LU`L`";
+            cubeToSolve.left();
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            counter = 0;
+        } else if (reviewedEntity[2][3] == 'w') {//state 46`4` (16)
+            logToAdd += "BU`B`";
+            cubeToSolve.back();
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            counter = 0;
+        } else if ((reviewedEntity[5][1] == 'w' && reviewedEntity[0][7] != 'b') ||
+                   reviewedEntity[0][7] == 'w') {//state 2``6`2`` (21)
+            logToAdd += "FFU`FF";
+            cubeToSolve.front();
+            cubeToSolve.front();
+            cubeToSolve.upReversed();
+            cubeToSolve.front();
+            cubeToSolve.front();
+            counter = 0;
+        } else if ((reviewedEntity[5][5] == 'w' && reviewedEntity[1][7] != 'p') ||
+                   reviewedEntity[1][7] == 'w') { //state 3``6`3`` (22)
+            logToAdd += "RRU`RR";
+            cubeToSolve.right();
+            cubeToSolve.right();
+            cubeToSolve.upReversed();
+            cubeToSolve.right();
+            cubeToSolve.right();
+            counter = 0;
+        } else if ((reviewedEntity[5][3] == 'w' && reviewedEntity[3][7] != 'r') ||
+                   reviewedEntity[3][7] == 'w') {//state 5``6`5``
+            logToAdd += "LLU`LL";
+            cubeToSolve.left();
+            cubeToSolve.left();
+            cubeToSolve.upReversed();
+            cubeToSolve.left();
+            cubeToSolve.left();
+            counter = 0;
+        } else if ((reviewedEntity[5][7] == 'w' && reviewedEntity[2][7] != 'g') ||
+                   reviewedEntity[2][7] == 'w') {//state 4``6`4``
+            logToAdd += "BBU`BB";
+            cubeToSolve.back();
+            cubeToSolve.back();
+            cubeToSolve.upReversed();
+            cubeToSolve.back();
+            cubeToSolve.back();
+            counter = 0;
+        } else {
+            cubeToSolve.up();
+            logToAdd += "U";
+            counter++;
+            if (counter == 4)
+                break;
+        }
+    }
+    return logToAdd;
+}
+
+std::string Solver::stepTwo() {
+    std::string logToAdd;
+    int counter = 0;
+    while (true) {
+        std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
+        if (reviewedEntity[0][7] == 'b' && reviewedEntity[0][2] == 'w' && reviewedEntity[1][0] == 'p' &&
+            reviewedEntity[1][7] == 'p' && reviewedEntity[4][8] == 'b') {//1
+            logToAdd += "F`U`F";
+            cubeToSolve.frontReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.front();
+            counter = 0;
+        } else if (reviewedEntity[0][0] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[4][6] == 'r' &&
+                   reviewedEntity[3][7] == 'r' && reviewedEntity[3][2] == 'w') {//2
+            logToAdd += "L`U`L";
+            cubeToSolve.leftReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.left();
+            counter = 0;
+        } else if (reviewedEntity[2][0] == 'g' && reviewedEntity[2][7] == 'g' && reviewedEntity[4][2] == 'p' &&
+                   reviewedEntity[1][2] == 'w' && reviewedEntity[1][7] == 'p') {
+            logToAdd += "R`U`R";
+            cubeToSolve.rightReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.right();
+            counter = 0;
+        } else if (reviewedEntity[2][7] == 'g' && reviewedEntity[2][2] == 'w' && reviewedEntity[4][0] == 'g' &&
+                   reviewedEntity[3][7] == 'r' && reviewedEntity[3][0] == 'r') {
+            logToAdd += "B`U`B";
+            cubeToSolve.backReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.back();
+            counter = 0;
+        } else if (reviewedEntity[0][2] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[4][8] == 'p' &&
+                   reviewedEntity[1][0] == 'w' && reviewedEntity[1][7] == 'p') {
+            logToAdd += "RUR`";
+            cubeToSolve.right();
+            cubeToSolve.up();
+            cubeToSolve.rightReversed();
+            counter = 0;
+        } else if (reviewedEntity[0][0] == 'w' && reviewedEntity[0][7] == 'b' && reviewedEntity[3][2] == 'r' &&
+                   reviewedEntity[3][7] == 'r' && reviewedEntity[4][6] == 'b') {
+            logToAdd += "FUF`";
+            cubeToSolve.front();
+            cubeToSolve.up();
+            cubeToSolve.frontReversed();
+            counter = 0;
+        } else if (reviewedEntity[2][0] == 'w' && reviewedEntity[2][7] == 'g' && reviewedEntity[1][2] == 'p' &&
+                   reviewedEntity[3][7] == 'p' && reviewedEntity[4][2] == 'g') {
+            logToAdd += "BUB`";
+            cubeToSolve.back();
+            cubeToSolve.up();
+            cubeToSolve.backReversed();
+            counter = 0;
+        } else if (reviewedEntity[2][2] == 'g' && reviewedEntity[2][7] == 'g' && reviewedEntity[3][0] == 'w' &&
+                   reviewedEntity[3][7] == 'r' && reviewedEntity[4][0] == 'r') {
+            logToAdd += "LUL`";
+            cubeToSolve.left();
+            cubeToSolve.up();
+            cubeToSolve.leftReversed();
+            counter = 0;
+        } else if (reviewedEntity[0][2] == 'p' && reviewedEntity[0][7] == 'b' && reviewedEntity[4][8] == 'w' &&
+                   reviewedEntity[1][0] == 'b' && reviewedEntity[1][7] == 'p') {
+            logToAdd += "RU`R`UURUR`";
+            cubeToSolve.right();
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            cubeToSolve.up();
+            cubeToSolve.up();
+            cubeToSolve.right();
+            cubeToSolve.up();
+            cubeToSolve.rightReversed();
+            counter = 0;
+        } else if (reviewedEntity[0][0] == 'r' && reviewedEntity[0][7] == 'b' && reviewedEntity[3][2] == 'b' &&
+                   reviewedEntity[3][7] == 'r' && reviewedEntity[4][6] == 'w') {
+            logToAdd += "FU`F`UUFUF`";
+            cubeToSolve.front();
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            cubeToSolve.up();
+            cubeToSolve.up();
+            cubeToSolve.front();
+            cubeToSolve.up();
+            cubeToSolve.frontReversed();
+            counter = 0;
+        } else if (reviewedEntity[2][0] == 'p' && reviewedEntity[2][7] == 'g' && reviewedEntity[4][2] == 'w' &&
+                   reviewedEntity[1][2] == 'g' && reviewedEntity[1][7] == 'p') {
+            logToAdd += "BU`B`UUBUB`";
+            cubeToSolve.back();
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            cubeToSolve.up();
+            cubeToSolve.up();
+            cubeToSolve.back();
+            cubeToSolve.up();
+            cubeToSolve.backReversed();
+            counter = 0;
+        } else if (reviewedEntity[2][2] == 'r' && reviewedEntity[2][7] == 'g' && reviewedEntity[4][0] == 'w' &&
+                   reviewedEntity[3][0] == 'g' && reviewedEntity[3][7] == 'r') {
+            logToAdd += "LU`L`UULUL`";
+            cubeToSolve.left();
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            cubeToSolve.up();
+            cubeToSolve.up();
+            cubeToSolve.left();
+            cubeToSolve.up();
+            cubeToSolve.leftReversed();
+            counter = 0;
+        } else if ((reviewedEntity[0][7] == 'b' && reviewedEntity[0][8] == 'w' && reviewedEntity[1][7] == 'p') ||
+                   (reviewedEntity[0][7] == 'b' && reviewedEntity[1][6] == 'w' && reviewedEntity[1][7] == 'p')) {
+            logToAdd += "F`U`F";
+            cubeToSolve.frontReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.front();
+            counter = 0;
+        } else if ((reviewedEntity[0][7] == 'b' && reviewedEntity[3][7] == 'r' && reviewedEntity[3][8] == 'w') ||
+                   (reviewedEntity[0][6] == 'w' && reviewedEntity[0][7] == 'b' && reviewedEntity[3][7] == 'r')) {
+            logToAdd += "L`U`L";
+            cubeToSolve.leftReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.left();
+            counter = 0;
+        } else if ((reviewedEntity[2][7] == 'g' && reviewedEntity[1][8] == 'w' && reviewedEntity[1][7] == 'p') ||
+                   (reviewedEntity[2][6] == 'w' && reviewedEntity[2][7] == 'g' && reviewedEntity[1][7] == 'p')) {
+            logToAdd += "R`U`R";
+            cubeToSolve.rightReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.right();
+            counter = 0;
+        } else if ((reviewedEntity[2][7] == 'g' && reviewedEntity[2][8] == 'w' && reviewedEntity[3][7] == 'r') ||
+                   (reviewedEntity[2][7] == 'g' && reviewedEntity[3][6] == 'w' && reviewedEntity[3][7] == 'r')) {
+            logToAdd += "B`U`B";
+            cubeToSolve.backReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.back();
+        } else if (reviewedEntity[5][0] == 'w' && reviewedEntity[5][1] == 'w' && reviewedEntity[5][3] == 'w' &&
+                   reviewedEntity[5][4] == 'w' && reviewedEntity[5][5] == 'w' && reviewedEntity[5][7] == 'w' &&
+                   reviewedEntity[3][7] == 'r' && (reviewedEntity[3][8] != 'r' || reviewedEntity[0][6] != 'b')) {
+            logToAdd += "FU`F`";
+            cubeToSolve.front();
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            counter = 0;
+        } else if (reviewedEntity[5][1] == 'w' && reviewedEntity[5][2] == 'w' && reviewedEntity[5][3] == 'w' &&
+                   reviewedEntity[5][4] == 'w' && reviewedEntity[5][5] == 'w' && reviewedEntity[5][7] == 'w' &&
+                   reviewedEntity[0][7] == 'b' && reviewedEntity[1][7] == 'p' &&
+                   (reviewedEntity[0][8] != 'b' || reviewedEntity[1][6] != 'p')) {
+            logToAdd += "RU`R`";
+            cubeToSolve.right();
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            counter = 0;
+        } else if (reviewedEntity[5][1] == 'w' && reviewedEntity[5][3] == 'w' && reviewedEntity[5][4] == 'w' &&
+                   reviewedEntity[5][5] == 'w' && reviewedEntity[5][7] == 'w' && reviewedEntity[5][8] == 'w' &&
+                   reviewedEntity[2][7] == 'g' && reviewedEntity[1][7] == 'p' &&
+                   (reviewedEntity[1][8] != 'p' || reviewedEntity[2][6] != 'g')) {
+            logToAdd += "BU`B`";
+            cubeToSolve.back();
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            counter = 0;
+        } else if (reviewedEntity[5][1] == 'w' && reviewedEntity[5][3] == 'w' && reviewedEntity[5][4] == 'w' &&
+                   reviewedEntity[5][5] == 'w' && reviewedEntity[5][6] == 'w' && reviewedEntity[5][7] == 'w' &&
+                   reviewedEntity[2][7] == 'g' && reviewedEntity[3][7] == 'r' &&
+                   (reviewedEntity[2][8] != 'g' || reviewedEntity[3][6] != 'r')) {
+            logToAdd += "LU`L`";
+            cubeToSolve.left();
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            counter = 0;
+        } else {
+            cubeToSolve.up();
+            counter++;
+            if (counter == 4)
+                break;
+        }
+    }
+    return logToAdd;
+}
+
+std::string Solver::stepThree() {
+    std::string logToAdd;
+    while(true) {
+        int counter = 0;
+        while (true) {
+            std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
+            if (reviewedEntity[0][1] == 'b' && reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' &&
+                reviewedEntity[0][8] == 'b' && reviewedEntity[4][7] == 'r' && reviewedEntity[3][6] == 'r' &&
+                reviewedEntity[3][7] == 'r' && reviewedEntity[3][8] == 'r') {
+                logToAdd += "U`L`ULUFU`F`";
+                cubeToSolve.upReversed();
+                cubeToSolve.leftReversed();
+                cubeToSolve.up();
+                cubeToSolve.left();
+                cubeToSolve.up();
+                cubeToSolve.front();
+                cubeToSolve.upReversed();
+                cubeToSolve.frontReversed();
+                counter = 0;
+            } else if (reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[0][8] == 'b' &&
+                       reviewedEntity[1][1] == 'p' && reviewedEntity[1][6] == 'p' && reviewedEntity[1][7] == 'p' &&
+                       reviewedEntity[1][8]  == 'p' && reviewedEntity[4][5] == 'b') {
+                logToAdd += "U`F`UFURU`R`";
+                cubeToSolve.upReversed();
+                cubeToSolve.frontReversed();
+                cubeToSolve.up();
+                cubeToSolve.front();
+                cubeToSolve.up();
+                cubeToSolve.right();
+                cubeToSolve.upReversed();
+                cubeToSolve.rightReversed();
+                counter = 0;
+            } else if (reviewedEntity[2][1] == 'g' && reviewedEntity[2][6] == 'g' && reviewedEntity[2][7] == 'g' &&
+                       reviewedEntity[2][8] == 'g' && reviewedEntity[4][1] == 'p' && reviewedEntity[1][6] == 'p' &&
+                       reviewedEntity[1][7] == 'p' && reviewedEntity[1][8] == 'p') {
+                logToAdd += "U`R`URUBU`B`";
+                cubeToSolve.upReversed();
+                cubeToSolve.rightReversed();
+                cubeToSolve.up();
+                cubeToSolve.right();
+                cubeToSolve.up();
+                cubeToSolve.back();
+                cubeToSolve.upReversed();
+                cubeToSolve.backReversed();
+                counter = 0;
+            } else if (reviewedEntity[2][6] == 'g' && reviewedEntity[2][7] == 'g' && reviewedEntity[2][8] == 'g' &&
+                       reviewedEntity[3][1] == 'r' && reviewedEntity[3][6] == 'r' && reviewedEntity[3][7] == 'r' &&
+                       reviewedEntity[3][8] == 'r' && reviewedEntity[4][3] == 'g') {
+                logToAdd += "U`B`UBULU`L`";
+                cubeToSolve.upReversed();
+                cubeToSolve.backReversed();
+                cubeToSolve.up();
+                cubeToSolve.back();
+                cubeToSolve.up();
+                cubeToSolve.left();
+                cubeToSolve.upReversed();
+                cubeToSolve.leftReversed();
+                counter = 0;
+            } else if (reviewedEntity[0][1] == 'b' && reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' &&
+                       reviewedEntity[0][8] == 'b' && reviewedEntity[4][7] == 'p' && reviewedEntity[1][6] == 'p' &&
+                       reviewedEntity[1][7] == 'p' && reviewedEntity[1][8] == 'p') {
+                logToAdd += "URU`R`U`F`UF";
+                cubeToSolve.up();
+                cubeToSolve.right();
+                cubeToSolve.upReversed();
+                cubeToSolve.rightReversed();
+                cubeToSolve.upReversed();
+                cubeToSolve.frontReversed();
+                cubeToSolve.up();
+                cubeToSolve.front();
+                counter = 0;
+            } else if (reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[0][8] == 'b' &&
+                       reviewedEntity[4][3] == 'b' && reviewedEntity[3][1] == 'r' && reviewedEntity[3][6] == 'r' &&
+                       reviewedEntity[3][7] == 'r' && reviewedEntity[3][8] == 'r') {
+                logToAdd += "UFU`F`U`L`UL";
+                cubeToSolve.up();
+                cubeToSolve.front();
+                cubeToSolve.upReversed();
+                cubeToSolve.frontReversed();
+                cubeToSolve.upReversed();
+                cubeToSolve.leftReversed();
+                cubeToSolve.up();
+                cubeToSolve.left();
+                counter = 0;
+            } else if (reviewedEntity[2][1] == 'g' && reviewedEntity[2][6] == 'g' && reviewedEntity[2][7] == 'g' &&
+                       reviewedEntity[2][8] == 'g' && reviewedEntity[3][6] == 'r' && reviewedEntity[3][7] == 'r' &&
+                       reviewedEntity[3][8] == 'r' && reviewedEntity[4][1] == 'r') {
+                logToAdd += "ULU`L`U`B`UB";
+                cubeToSolve.up();
+                cubeToSolve.left();
+                cubeToSolve.upReversed();
+                cubeToSolve.leftReversed();
+                cubeToSolve.upReversed();
+                cubeToSolve.backReversed();
+                cubeToSolve.up();
+                cubeToSolve.back();
+                counter = 0;
+            } else if (reviewedEntity[2][7] == 'g' && reviewedEntity[2][6] == 'g' && reviewedEntity[2][8] == 'g' &&
+                       reviewedEntity[4][5] == 'g' && reviewedEntity[1][1] == 'p' && reviewedEntity[1][6] == 'p' &&
+                       reviewedEntity[1][7] == 'p' && reviewedEntity[1][8] == 'p') {
+                logToAdd += "UBU`B`U`R`UR";
+                cubeToSolve.up();
+                cubeToSolve.back();
+                cubeToSolve.upReversed();
+                cubeToSolve.backReversed();
+                cubeToSolve.upReversed();
+                cubeToSolve.rightReversed();
+                cubeToSolve.up();
+                cubeToSolve.right();
+                counter = 0;
+            } else {
+                cubeToSolve.up();
+                logToAdd += "U";
+                counter++;
+                if (counter == 4)
+                    break;
+            }
+        }
+        std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
+        if (reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[0][8] == 'b' &&
+            reviewedEntity[1][6] == 'p' && reviewedEntity[1][7] == 'p' && reviewedEntity[1][8] == 'p' &&
+            (reviewedEntity[0][5] != 'b' || reviewedEntity[1][3] != 'p')) {
+            logToAdd += "URU`R`U`F`UF";
+            cubeToSolve.up();
+            cubeToSolve.right();
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            cubeToSolve.up();
+            cubeToSolve.front();
+        } else if (reviewedEntity[0][6] == 'b' && reviewedEntity[0][7] == 'b' && reviewedEntity[0][8] == 'b' &&
+                   reviewedEntity[3][6] == 'r' && reviewedEntity[3][7] == 'r' && reviewedEntity[3][8] == 'r' &&
+                   (reviewedEntity[0][3] != 'b' || reviewedEntity[3][5] != 'r')) {
+            logToAdd += "UFU`F`U`L`UL";
+            cubeToSolve.up();
+            cubeToSolve.front();
+            cubeToSolve.upReversed();
+            cubeToSolve.frontReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            cubeToSolve.up();
+            cubeToSolve.left();
+        } else if (reviewedEntity[2][6] == 'g' && reviewedEntity[2][7] == 'g' && reviewedEntity[2][8] == 'g' &&
+                   reviewedEntity[3][6] == 'r' && reviewedEntity[3][7] == 'r' & reviewedEntity[3][8] == 'r' &&
+                   (reviewedEntity[3][3] != 'r' || reviewedEntity[2][5] != 'g')) {
+            logToAdd += "ULU`L`U`B`UB";
+            cubeToSolve.up();
+            cubeToSolve.left();
+            cubeToSolve.upReversed();
+            cubeToSolve.leftReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            cubeToSolve.up();
+            cubeToSolve.back();
+        } else if (reviewedEntity[2][6] == 'g' && reviewedEntity[2][7] == 'g' && reviewedEntity[2][8] == 'g' &&
+                   reviewedEntity[1][6] == 'p' && reviewedEntity[1][7] == 'p' && reviewedEntity[1][8] == 'p' &&
+                   (reviewedEntity[2][3] != 'g' || reviewedEntity[1][5] != 'p')) {
+            logToAdd += "UBU`B`U`R`UR";
+            cubeToSolve.up();
+            cubeToSolve.back();
+            cubeToSolve.upReversed();
+            cubeToSolve.backReversed();
+            cubeToSolve.upReversed();
+            cubeToSolve.rightReversed();
+            cubeToSolve.up();
+            cubeToSolve.right();
+        } else {
+            break;
+        }
+    }
+    return  logToAdd;
+}
+
+std::string Solver::stepFour() {
+    std::string logToAdd;
+    std::vector<std::vector<char>> reviewedEntity = cubeToSolve.getCubeEntity();
+    if(re)
+}
+
+
+Solver::~Solver() = default;
