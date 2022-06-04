@@ -166,7 +166,6 @@ void Cube::left() {
     CubeEntity[3][7] = tempEntity[3][5];
     CubeEntity[3][8] = tempEntity[3][2];
 
-
 }
 
 void Cube::leftReversed() {
@@ -454,7 +453,7 @@ bool Cube::checkInput(const std::vector<std::vector<char>> &cubeEntity) const {
     if (cubeEntity.size() != 6)
         return false;
     for (int i = 0; i < cubeEntity.size(); ++i) {//   for (int j = 0; j < CubeEntity[i].size(); ++j) {
-        if (CubeEntity[i].size() != 9) {
+        if (cubeEntity[i].size() != 9) {
             return false;
         }
     }
