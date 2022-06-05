@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/CircleBuff.h
+iostream
+-
+CircleIterator.h
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/CircleIterator.h
+
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/CircleIterator.h
+
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/algorithms.h
+vector
+-
+iostream
+-
+algorithm
+-
+
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/main.cpp
+iostream
+-
+algorithm
+-
+cassert
+-
+CircleBuff.h
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/CircleBuff.h
+algorithms.h
+/cygdrive/d/GitClone/BlueBlood-dev-cpp/lab3/CircularBuffer/algorithms.h
+

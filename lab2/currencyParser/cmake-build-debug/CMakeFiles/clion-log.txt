@@ -1,0 +1,1 @@
+CMakeLists.txt not found in D:\GitClone\BlueBlood-dev-cpp\lab2\currencyParser Select CMakeLists.txt

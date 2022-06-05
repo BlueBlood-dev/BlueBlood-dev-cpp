@@ -1,0 +1,3 @@
+/cygdrive/d/GitClone/2-sem-cpp-labs/currencyParser/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/d/GitClone/2-sem-cpp-labs/currencyParser/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/d/GitClone/2-sem-cpp-labs/currencyParser/cmake-build-debug/CMakeFiles/currencyParser.dir
